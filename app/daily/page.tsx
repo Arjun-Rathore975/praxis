@@ -40,32 +40,6 @@ function getDailyQuestion(date: Date = new Date()): Question {
   return pool[index]
 }
 
-function getCategoryColor(cat: string): string {
-  switch (cat) {
-    case 'DSA':
-      return 'text-blue-400 bg-blue-500/10 border-blue-500/30'
-    case 'System Design':
-      return 'text-purple-400 bg-purple-500/10 border-purple-500/30'
-    case 'Behavioral':
-      return 'text-emerald-400 bg-emerald-500/10 border-emerald-500/30'
-    default:
-      return 'text-amber-400 bg-amber-500/10 border-amber-500/30'
-  }
-}
-
-function getDifficultyColor(diff: string): string {
-  switch (diff) {
-    case 'Easy':
-      return 'text-green-400'
-    case 'Medium':
-      return 'text-yellow-400'
-    case 'Hard':
-      return 'text-red-400'
-    default:
-      return 'text-zinc-400'
-  }
-}
-
 export default function DailyChallengePage() {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
@@ -106,71 +80,66 @@ export default function DailyChallengePage() {
   if (!mounted) return null
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-white">
-      {/* Gradient background accent */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-amber-500/[0.03] to-transparent rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative max-w-3xl mx-auto px-6 py-16 space-y-10">
+    <main className="min-h-screen bg-black text-[#ededed]">
+      <div className="max-w-4xl mx-auto px-6 py-20 space-y-12">
         {/* Back button */}
         <button
           onClick={() => router.push('/')}
-          className="flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
+          className="flex items-center gap-2 text-sm text-[#666666] hover:text-[#ededed] transition-colors duration-200"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Back to Home
+          Back
         </button>
 
         {/* Header */}
-        <div className="text-center space-y-3 animate-fadeIn">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-500/30 bg-amber-500/10 text-xs text-amber-400 mb-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+        <div className="text-center space-y-4 animate-fadeIn">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-[#0a0a0a] text-xs text-[#888888]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#f5a623]" />
             Daily Challenge
           </div>
-          <h1 className="text-4xl font-bold tracking-tight bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold tracking-tight text-white">
             Today&apos;s Challenge
           </h1>
-          <p className="text-zinc-500 text-base">
+          <p className="text-[#888888] text-base">
             {today.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
           </p>
         </div>
 
         {/* Streak Stats */}
-        <div className="grid grid-cols-3 gap-3 animate-fadeIn" style={{ animationDelay: '0.1s' }}>
-          <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-5 text-center">
-            <p className="text-3xl font-bold text-amber-400">
-              <span role="img" aria-label="fire">&#x1F525;</span> {streakData.currentStreak}
+        <div className="grid grid-cols-3 gap-4 animate-fadeIn" style={{ animationDelay: '0.1s' }}>
+          <div className="border border-white/10 rounded-lg p-5 text-center">
+            <p className="text-3xl font-bold text-white tabular-nums">
+              {streakData.currentStreak}
             </p>
-            <p className="text-[10px] uppercase tracking-widest text-zinc-600 mt-1">Current Streak</p>
+            <p className="text-[10px] uppercase tracking-widest text-[#666666] mt-1">Current Streak</p>
           </div>
-          <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-5 text-center">
-            <p className="text-3xl font-bold text-orange-400">
+          <div className="border border-white/10 rounded-lg p-5 text-center">
+            <p className="text-3xl font-bold text-white tabular-nums">
               {streakData.bestStreak}
             </p>
-            <p className="text-[10px] uppercase tracking-widest text-zinc-600 mt-1">Best Streak</p>
+            <p className="text-[10px] uppercase tracking-widest text-[#666666] mt-1">Best Streak</p>
           </div>
-          <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-5 text-center">
-            <p className="text-3xl font-bold text-zinc-300">
+          <div className="border border-white/10 rounded-lg p-5 text-center">
+            <p className="text-3xl font-bold text-white tabular-nums">
               {streakData.completedDates.length}
             </p>
-            <p className="text-[10px] uppercase tracking-widest text-zinc-600 mt-1">Total Days</p>
+            <p className="text-[10px] uppercase tracking-widest text-[#666666] mt-1">Total Days</p>
           </div>
         </div>
 
         {/* Calendar Heatmap */}
-        <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-5 animate-fadeIn" style={{ animationDelay: '0.15s' }}>
+        <div className="border border-white/10 rounded-lg p-5 animate-fadeIn" style={{ animationDelay: '0.15s' }}>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-zinc-300">Last 30 Days</h2>
-            <div className="flex items-center gap-2 text-[10px] text-zinc-600">
-              <span className="flex items-center gap-1">
-                <span className="w-3 h-3 rounded-sm bg-zinc-800 border border-zinc-700/50" />
+            <h2 className="text-xs font-medium uppercase tracking-widest text-[#666666]">Last 30 Days</h2>
+            <div className="flex items-center gap-3 text-[10px] text-[#666666]">
+              <span className="flex items-center gap-1.5">
+                <span className="w-3 h-3 rounded-sm border border-white/10" />
                 Missed
               </span>
-              <span className="flex items-center gap-1">
-                <span className="w-3 h-3 rounded-sm bg-green-500/60 border border-green-500/30" />
+              <span className="flex items-center gap-1.5">
+                <span className="w-3 h-3 rounded-sm bg-[#00d4aa]/40 border border-[#00d4aa]/30" />
                 Practiced
               </span>
             </div>
@@ -183,11 +152,11 @@ export default function DailyChallengePage() {
               return (
                 <div
                   key={day.date}
-                  className={`aspect-square rounded-md flex items-center justify-center text-[10px] font-medium transition-colors ${
+                  className={`aspect-square rounded-sm flex items-center justify-center text-[10px] font-medium transition-colors duration-200 ${
                     day.completed
-                      ? 'bg-green-500/30 border border-green-500/40 text-green-300'
-                      : 'bg-zinc-800/50 border border-zinc-800 text-zinc-600'
-                  } ${isToday ? 'ring-1 ring-amber-500/50' : ''}`}
+                      ? 'bg-[#00d4aa]/20 border border-[#00d4aa]/30 text-[#00d4aa]'
+                      : 'border border-white/10 text-[#666666]'
+                  } ${isToday ? 'ring-1 ring-white/30' : ''}`}
                   title={`${day.date}${day.completed ? ' - Completed' : ''}`}
                 >
                   {dayNum}
@@ -198,27 +167,29 @@ export default function DailyChallengePage() {
         </div>
 
         {/* Today's Question */}
-        <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 space-y-4 animate-fadeIn" style={{ animationDelay: '0.2s' }}>
+        <div className="border border-white/10 rounded-lg p-6 space-y-4 animate-fadeIn" style={{ animationDelay: '0.2s' }}>
           <div className="flex items-center gap-2 flex-wrap">
-            <span className={`px-2.5 py-0.5 rounded-full border text-xs font-medium ${getCategoryColor(question.category)}`}>
+            <span className="px-2.5 py-0.5 rounded-full border border-white/10 text-xs text-[#888888]">
               {question.category}
             </span>
-            <span className={`text-xs font-medium ${getDifficultyColor(question.difficulty)}`}>
+            <span className={`text-xs font-medium ${
+              question.difficulty === 'Easy' ? 'text-[#00d4aa]' : question.difficulty === 'Medium' ? 'text-[#f5a623]' : 'text-[#ee5555]'
+            }`}>
               {question.difficulty}
             </span>
-            <span className="text-xs text-zinc-600 ml-auto">
+            <span className="text-xs text-[#666666] ml-auto">
               {question.company.slice(0, 3).join(', ')}
             </span>
           </div>
 
           <h3 className="text-xl font-semibold text-white">{question.title}</h3>
-          <p className="text-sm text-zinc-400 leading-relaxed">{question.description}</p>
+          <p className="text-sm text-[#888888] leading-relaxed">{question.description}</p>
 
           <div className="flex flex-wrap gap-1.5 pt-1">
             {question.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-0.5 rounded-md bg-zinc-800/60 border border-zinc-700/50 text-[11px] text-zinc-500"
+                className="px-2 py-0.5 rounded-full bg-white/5 text-[11px] text-[#666666]"
               >
                 {tag}
               </span>
@@ -227,10 +198,10 @@ export default function DailyChallengePage() {
 
           <button
             onClick={handleStartChallenge}
-            className={`w-full py-3.5 rounded-xl text-sm font-semibold transition-all duration-300 mt-2 ${
+            className={`w-full py-3.5 rounded-lg text-sm font-medium transition-all duration-200 mt-2 ${
               completedToday
-                ? 'bg-green-500/20 text-green-400 border border-green-500/30 hover:bg-green-500/30'
-                : 'bg-amber-500 text-zinc-950 hover:bg-amber-400 active:scale-[0.99]'
+                ? 'border border-[#00d4aa]/30 text-[#00d4aa] hover:bg-[#00d4aa]/5'
+                : 'bg-white text-black hover:bg-white/90 active:scale-[0.99]'
             }`}
           >
             {completedToday ? (
@@ -252,8 +223,8 @@ export default function DailyChallengePage() {
         </div>
 
         {/* Weekly Schedule */}
-        <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-5 animate-fadeIn" style={{ animationDelay: '0.25s' }}>
-          <h2 className="text-sm font-semibold text-zinc-300 mb-4">Weekly Schedule</h2>
+        <div className="border border-white/10 rounded-lg p-5 animate-fadeIn" style={{ animationDelay: '0.25s' }}>
+          <h2 className="text-xs font-medium uppercase tracking-widest text-[#666666] mb-4">Weekly Schedule</h2>
           <div className="grid grid-cols-7 gap-2">
             {(['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const).map((day) => {
               const cat = categorySchedule[day]
@@ -261,16 +232,16 @@ export default function DailyChallengePage() {
               return (
                 <div
                   key={day}
-                  className={`rounded-xl p-3 text-center transition-colors ${
+                  className={`rounded-md p-3 text-center transition-colors duration-200 ${
                     isToday
-                      ? 'bg-amber-500/10 border border-amber-500/30'
-                      : 'bg-zinc-800/30 border border-zinc-800/50'
+                      ? 'border border-white/30 bg-white/5'
+                      : 'border border-white/10'
                   }`}
                 >
-                  <p className={`text-[10px] uppercase tracking-widest mb-1 ${isToday ? 'text-amber-400' : 'text-zinc-600'}`}>
+                  <p className={`text-[10px] uppercase tracking-widest mb-1 ${isToday ? 'text-white' : 'text-[#666666]'}`}>
                     {day}
                   </p>
-                  <p className={`text-[10px] font-medium leading-tight ${isToday ? 'text-amber-300' : 'text-zinc-500'}`}>
+                  <p className={`text-[10px] font-medium leading-tight ${isToday ? 'text-[#ededed]' : 'text-[#888888]'}`}>
                     {cat === 'System Design' ? 'Sys Design' : cat}
                   </p>
                 </div>

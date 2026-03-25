@@ -36,16 +36,16 @@ export function VoiceSettings({
   const displayVoices = englishVoices.length > 0 ? englishVoices : voices
 
   return (
-    <div className="w-72 bg-zinc-900 border border-zinc-800 rounded-xl p-4 shadow-xl space-y-4 animate-fadeIn">
+    <div className="w-72 bg-[#0a0a0a] border border-white/10 rounded-lg p-4 space-y-4 animate-fadeIn">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">
+        <h3 className="text-xs font-medium text-[#888888] uppercase tracking-widest">
           Voice Settings
         </h3>
         <button
           type="button"
           onClick={onClose}
-          className="text-zinc-600 hover:text-zinc-300 transition-colors"
+          className="text-[#666666] hover:text-[#ededed] transition-colors duration-200"
         >
           <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
             <path d="M4 4l8 8M12 4l-8 8" />
@@ -55,11 +55,11 @@ export function VoiceSettings({
 
       {/* Voice Selection */}
       <div className="space-y-1.5">
-        <label className="text-[11px] text-zinc-500 block">Voice</label>
+        <label className="text-[11px] text-[#666666] block">Voice</label>
         <select
           value={preferences.voiceURI}
           onChange={(e) => setPreference('voiceURI', e.target.value)}
-          className="w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-xs text-zinc-200 outline-none focus:border-zinc-600 transition-colors"
+          className="w-full bg-transparent border border-white/10 rounded-md px-3 py-2 text-xs text-[#ededed] outline-none focus:border-white/20 transition-colors duration-200"
         >
           {displayVoices.map((v) => (
             <option key={v.voiceURI} value={v.voiceURI}>
@@ -72,8 +72,8 @@ export function VoiceSettings({
       {/* Speed Slider */}
       <div className="space-y-1.5">
         <div className="flex items-center justify-between">
-          <label className="text-[11px] text-zinc-500">Speed</label>
-          <span className="text-[11px] text-zinc-600 tabular-nums">
+          <label className="text-[11px] text-[#666666]">Speed</label>
+          <span className="text-[11px] text-[#666666] tabular-nums">
             {preferences.rate.toFixed(1)}x
           </span>
         </div>
@@ -84,12 +84,12 @@ export function VoiceSettings({
           step="0.1"
           value={preferences.rate}
           onChange={(e) => setPreference('rate', parseFloat(e.target.value))}
-          className="w-full h-1 bg-zinc-700 rounded-full appearance-none cursor-pointer accent-blue-500
+          className="w-full h-1 bg-white/10 rounded-full appearance-none cursor-pointer accent-white
             [&::-webkit-slider-thumb]:appearance-none
             [&::-webkit-slider-thumb]:w-3
             [&::-webkit-slider-thumb]:h-3
             [&::-webkit-slider-thumb]:rounded-full
-            [&::-webkit-slider-thumb]:bg-blue-500
+            [&::-webkit-slider-thumb]:bg-white
             [&::-webkit-slider-thumb]:cursor-pointer
           "
         />
@@ -98,8 +98,8 @@ export function VoiceSettings({
       {/* Volume Slider */}
       <div className="space-y-1.5">
         <div className="flex items-center justify-between">
-          <label className="text-[11px] text-zinc-500">Volume</label>
-          <span className="text-[11px] text-zinc-600 tabular-nums">
+          <label className="text-[11px] text-[#666666]">Volume</label>
+          <span className="text-[11px] text-[#666666] tabular-nums">
             {Math.round(preferences.volume * 100)}%
           </span>
         </div>
@@ -110,12 +110,12 @@ export function VoiceSettings({
           step="0.05"
           value={preferences.volume}
           onChange={(e) => setPreference('volume', parseFloat(e.target.value))}
-          className="w-full h-1 bg-zinc-700 rounded-full appearance-none cursor-pointer accent-blue-500
+          className="w-full h-1 bg-white/10 rounded-full appearance-none cursor-pointer accent-white
             [&::-webkit-slider-thumb]:appearance-none
             [&::-webkit-slider-thumb]:w-3
             [&::-webkit-slider-thumb]:h-3
             [&::-webkit-slider-thumb]:rounded-full
-            [&::-webkit-slider-thumb]:bg-blue-500
+            [&::-webkit-slider-thumb]:bg-white
             [&::-webkit-slider-thumb]:cursor-pointer
           "
         />

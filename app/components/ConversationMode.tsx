@@ -28,12 +28,12 @@ export function ConversationMode({ voice, visible = true }: ConversationModeProp
         type="button"
         onClick={voice.toggleConversationMode}
         className={`
-          flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-medium
-          border transition-all select-none
+          flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium
+          border transition-all duration-200 select-none
           ${
             voice.conversationMode
-              ? 'border-blue-500/40 bg-blue-500/10 text-blue-400 hover:bg-blue-500/20'
-              : 'border-zinc-800 bg-zinc-900/50 text-zinc-500 hover:text-zinc-300 hover:border-zinc-700'
+              ? 'border-white/30 bg-white/5 text-white'
+              : 'border-white/10 text-[#666666] hover:text-[#ededed] hover:border-white/20'
           }
         `}
         title={
@@ -60,7 +60,7 @@ export function ConversationMode({ voice, visible = true }: ConversationModeProp
 
         {/* Active indicator dot */}
         {voice.conversationMode && (
-          <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#00d4aa] animate-pulse" />
         )}
       </button>
 
@@ -69,7 +69,7 @@ export function ConversationMode({ voice, visible = true }: ConversationModeProp
         <button
           type="button"
           onClick={voice.toggleSettings}
-          className="absolute -right-8 top-1/2 -translate-y-1/2 w-6 h-6 rounded-lg flex items-center justify-center text-zinc-600 hover:text-zinc-300 transition-colors"
+          className="absolute -right-8 top-1/2 -translate-y-1/2 w-6 h-6 rounded-md flex items-center justify-center text-[#666666] hover:text-[#ededed] transition-colors duration-200"
           title="Voice settings"
         >
           <svg

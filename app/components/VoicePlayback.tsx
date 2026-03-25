@@ -31,11 +31,11 @@ export function VoicePlayback({
       onClick={() => onToggle(text, index)}
       className={`
         inline-flex items-center justify-center
-        w-7 h-7 rounded-lg transition-all
+        w-7 h-7 rounded-md transition-all duration-200
         ${
           isPlaying
-            ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
-            : 'bg-zinc-800/60 text-zinc-500 hover:text-zinc-300 hover:bg-zinc-700/60'
+            ? 'bg-white/10 text-white'
+            : 'border border-white/10 text-[#666666] hover:text-[#ededed] hover:border-white/20'
         }
       `}
       title={isPlaying ? 'Stop speaking' : 'Read aloud'}

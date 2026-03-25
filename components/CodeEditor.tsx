@@ -47,20 +47,20 @@ export default function CodeEditor({ onSubmitCode }: CodeEditorProps) {
   }, [code, language, onSubmitCode])
 
   return (
-    <div className="flex flex-col h-full bg-zinc-950">
+    <div className="flex flex-col h-full bg-black">
       {/* Toolbar */}
-      <div className="shrink-0 flex items-center justify-between px-3 py-2 border-b border-zinc-800/80 bg-zinc-900/50">
+      <div className="shrink-0 flex items-center justify-between px-3 py-2 border-b border-white/10">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-zinc-500">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="text-[#666666]">
               <path d="M5 3l6 5-6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
             <select
               value={language}
               onChange={(e) => handleLanguageChange(e.target.value)}
-              className="bg-zinc-800 text-zinc-300 text-xs px-2.5 py-1.5 rounded-lg border border-zinc-700/50 outline-none hover:border-zinc-600 focus:border-zinc-500 transition-colors cursor-pointer appearance-none pr-7"
+              className="bg-transparent text-[#ededed] text-xs px-2.5 py-1.5 rounded-md border border-white/10 outline-none hover:border-white/20 focus:border-white/20 transition-colors duration-200 cursor-pointer appearance-none pr-7"
               style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2371717a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%23666666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right 8px center',
               }}
@@ -77,15 +77,15 @@ export default function CodeEditor({ onSubmitCode }: CodeEditorProps) {
           <button
             onClick={handleRun}
             disabled={isRunning}
-            className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border transition-all ${
+            className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md border transition-all duration-200 ${
               isRunning
-                ? 'border-green-500/30 text-green-400 bg-green-500/10'
-                : 'border-zinc-700/50 text-zinc-400 hover:text-green-400 hover:border-green-500/30 hover:bg-green-500/5'
+                ? 'border-[#00d4aa]/30 text-[#00d4aa] bg-[#00d4aa]/5'
+                : 'border-white/10 text-[#888888] hover:text-[#00d4aa] hover:border-[#00d4aa]/30'
             }`}
           >
             {isRunning ? (
               <>
-                <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00d4aa] animate-pulse" />
                 Running...
               </>
             ) : (
@@ -99,7 +99,7 @@ export default function CodeEditor({ onSubmitCode }: CodeEditorProps) {
           </button>
           <button
             onClick={handleSubmit}
-            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-zinc-700/50 text-zinc-400 hover:text-white hover:border-white/30 hover:bg-white/5 transition-all"
+            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-md border border-white/10 text-[#888888] hover:text-white hover:border-white/30 hover:bg-white/5 transition-all duration-200"
           >
             <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M2 8h12M10 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round"/>
@@ -111,9 +111,9 @@ export default function CodeEditor({ onSubmitCode }: CodeEditorProps) {
 
       {/* Output panel for Run (visual only) */}
       {isRunning && (
-        <div className="shrink-0 border-b border-zinc-800/80 bg-zinc-900/30 px-4 py-3">
-          <div className="flex items-center gap-2 text-xs text-zinc-500">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+        <div className="shrink-0 border-b border-white/10 px-4 py-3">
+          <div className="flex items-center gap-2 text-xs text-[#888888]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00d4aa] animate-pulse" />
             Executing code...
           </div>
         </div>

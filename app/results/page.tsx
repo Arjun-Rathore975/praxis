@@ -28,19 +28,18 @@ interface AnswerComparison {
   gap: string
 }
 
-const decisionConfig: Record<string, { color: string; bg: string; glow: string }> = {
-  'Strong Hire': { color: 'text-green-400', bg: 'border-green-500/40 bg-green-500/10', glow: 'glow-green' },
-  'Hire': { color: 'text-green-300', bg: 'border-green-400/40 bg-green-400/8', glow: 'glow-green' },
-  'Lean Hire': { color: 'text-yellow-400', bg: 'border-yellow-500/40 bg-yellow-500/10', glow: 'glow-yellow' },
-  'Lean No Hire': { color: 'text-orange-400', bg: 'border-orange-500/40 bg-orange-500/10', glow: 'glow-yellow' },
-  'No Hire': { color: 'text-red-400', bg: 'border-red-500/40 bg-red-500/10', glow: 'glow-red' },
+const decisionConfig: Record<string, { color: string; border: string }> = {
+  'Strong Hire': { color: 'text-[#00d4aa]', border: 'border-[#00d4aa]/30' },
+  'Hire': { color: 'text-[#00d4aa]', border: 'border-[#00d4aa]/20' },
+  'Lean Hire': { color: 'text-[#f5a623]', border: 'border-[#f5a623]/20' },
+  'Lean No Hire': { color: 'text-[#f5a623]', border: 'border-[#f5a623]/20' },
+  'No Hire': { color: 'text-[#ee5555]', border: 'border-[#ee5555]/20' },
 }
 
 function ScoreBar({ label, score, delay = 0 }: { label: string; score: number; delay?: number }) {
   const [width, setWidth] = useState(0)
   const pct = (score / 10) * 100
-  const color = score >= 8 ? 'bg-green-500' : score >= 6 ? 'bg-yellow-500' : score >= 4 ? 'bg-orange-500' : 'bg-red-500'
-  const glowColor = score >= 8 ? 'shadow-green-500/20' : score >= 6 ? 'shadow-yellow-500/20' : 'shadow-red-500/20'
+  const color = score >= 8 ? 'bg-[#00d4aa]' : score >= 6 ? 'bg-[#f5a623]' : 'bg-[#ee5555]'
 
   useEffect(() => {
     const timer = setTimeout(() => setWidth(pct), 100 + delay)
@@ -50,12 +49,12 @@ function ScoreBar({ label, score, delay = 0 }: { label: string; score: number; d
   return (
     <div className="space-y-2">
       <div className="flex justify-between text-sm">
-        <span className="text-zinc-500">{label}</span>
-        <span className="text-white font-semibold tabular-nums">{score}<span className="text-zinc-600 font-normal">/10</span></span>
+        <span className="text-[#888888]">{label}</span>
+        <span className="text-white font-medium tabular-nums">{score}<span className="text-[#666666] font-normal">/10</span></span>
       </div>
-      <div className="h-2 bg-zinc-800/80 rounded-full overflow-hidden">
+      <div className="h-1 bg-white/5 rounded-full overflow-hidden">
         <div
-          className={`h-full ${color} rounded-full score-bar-fill shadow-sm ${glowColor}`}
+          className={`h-full ${color} rounded-full score-bar-fill`}
           style={{ width: `${width}%` }}
         />
       </div>
@@ -123,10 +122,10 @@ function Results() {
 
   if (!scorecard) {
     return (
-      <main className="min-h-screen bg-zinc-950 text-white flex items-center justify-center">
+      <main className="min-h-screen bg-black text-[#ededed] flex items-center justify-center">
         <div className="text-center space-y-4 animate-fadeIn">
-          <p className="text-zinc-500">No results found.</p>
-          <button onClick={() => router.push('/')} className="text-white underline underline-offset-4 text-sm hover:text-zinc-300">
+          <p className="text-[#888888]">No results found.</p>
+          <button onClick={() => router.push('/')} className="text-white underline underline-offset-4 text-sm hover:text-[#888888] transition-colors duration-200">
             Start a new interview
           </button>
         </div>
@@ -134,49 +133,45 @@ function Results() {
     )
   }
 
-  const config = decisionConfig[scorecard.decision] || { color: 'text-zinc-400', bg: 'border-zinc-700 bg-zinc-800', glow: '' }
+  const config = decisionConfig[scorecard.decision] || { color: 'text-[#888888]', border: 'border-white/10' }
 
   if (!mounted) return null
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-white">
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-b from-white/[0.015] to-transparent rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative max-w-2xl mx-auto px-6 py-16 space-y-8">
+    <main className="min-h-screen bg-black text-[#ededed]">
+      <div className="max-w-2xl mx-auto px-6 py-20 space-y-10">
         {/* Header */}
         <div className="text-center space-y-3 animate-fadeIn">
-          <p className="text-xs text-zinc-600 uppercase tracking-widest">{company} &middot; {category} &middot; {difficulty}</p>
-          <h1 className="text-3xl font-bold tracking-tight">Interview Complete</h1>
+          <p className="text-xs text-[#666666] uppercase tracking-widest">{company} / {category} / {difficulty}</p>
+          <h1 className="text-3xl font-bold tracking-tight text-white">Interview Complete</h1>
         </div>
 
         {/* Decision Card */}
-        <div className={`border rounded-2xl p-8 text-center animate-slideUp ${config.bg} ${config.glow}`}>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-zinc-500 mb-2">Hiring Decision</p>
+        <div className={`border ${config.border} rounded-lg p-8 text-center animate-slideUp`}>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-[#666666] mb-3">Hiring Decision</p>
           <p className={`text-3xl font-bold ${config.color}`}>{scorecard.decision}</p>
-          <p className="text-sm text-zinc-500 mt-3 max-w-md mx-auto leading-relaxed">{scorecard.summary}</p>
+          <p className="text-sm text-[#888888] mt-4 max-w-md mx-auto leading-relaxed">{scorecard.summary}</p>
         </div>
 
         {/* Scores */}
-        <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 space-y-5 animate-fadeIn" style={{ animationDelay: '0.1s' }}>
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-600">Performance Breakdown</h2>
+        <div className="border border-white/10 rounded-lg p-6 space-y-5 animate-fadeIn" style={{ animationDelay: '0.1s' }}>
+          <h2 className="text-xs font-medium uppercase tracking-widest text-[#666666]">Performance Breakdown</h2>
           <ScoreBar label="Problem Solving" score={scorecard.scores.problem_solving} delay={0} />
           <ScoreBar label="Communication" score={scorecard.scores.communication} delay={100} />
           <ScoreBar label="Technical Depth" score={scorecard.scores.technical_depth} delay={200} />
-          <div className="pt-3 border-t border-zinc-800/80">
+          <div className="pt-4 border-t border-white/10">
             <ScoreBar label="Overall" score={scorecard.scores.overall} delay={300} />
           </div>
         </div>
 
         {/* Strengths & Improvements */}
         <div className="grid grid-cols-2 gap-4 animate-fadeIn" style={{ animationDelay: '0.2s' }}>
-          <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-5 space-y-3">
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-green-500/80">Strengths</h2>
+          <div className="border border-white/10 rounded-lg p-5 space-y-3">
+            <h2 className="text-xs font-medium uppercase tracking-widest text-[#00d4aa]/70">Strengths</h2>
             <ul className="space-y-2.5">
               {scorecard.strengths.map((s, i) => (
-                <li key={i} className="text-sm text-zinc-300 flex gap-2.5 leading-relaxed">
-                  <span className="text-green-500 mt-0.5 shrink-0">
+                <li key={i} className="text-sm text-[#ededed] flex gap-2.5 leading-relaxed">
+                  <span className="text-[#00d4aa] mt-0.5 shrink-0">
                     <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8l4 4 6-8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </span>
                   {s}
@@ -184,12 +179,12 @@ function Results() {
               ))}
             </ul>
           </div>
-          <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-5 space-y-3">
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-yellow-500/80">To Improve</h2>
+          <div className="border border-white/10 rounded-lg p-5 space-y-3">
+            <h2 className="text-xs font-medium uppercase tracking-widest text-[#f5a623]/70">To Improve</h2>
             <ul className="space-y-2.5">
               {scorecard.improvements.map((s, i) => (
-                <li key={i} className="text-sm text-zinc-300 flex gap-2.5 leading-relaxed">
-                  <span className="text-yellow-500 mt-1 shrink-0">
+                <li key={i} className="text-sm text-[#ededed] flex gap-2.5 leading-relaxed">
+                  <span className="text-[#f5a623] mt-1 shrink-0">
                     <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </span>
                   {s}
@@ -201,45 +196,45 @@ function Results() {
 
         {/* Answer Comparison */}
         {transcript.length > 0 && (
-          <div className="bg-zinc-900/50 border border-zinc-800/80 rounded-2xl p-6 space-y-4 animate-fadeIn" style={{ animationDelay: '0.3s' }}>
+          <div className="border border-white/10 rounded-lg p-6 space-y-4 animate-fadeIn" style={{ animationDelay: '0.3s' }}>
             <div className="flex items-center justify-between">
-              <h2 className="text-xs font-semibold uppercase tracking-widest text-blue-400/80">Your Answer vs. Strong Hire</h2>
+              <h2 className="text-xs font-medium uppercase tracking-widest text-[#888888]">Your Answer vs. Strong Hire</h2>
               {loadingComparison && (
-                <span className="text-xs text-zinc-600 animate-breathe">Analyzing...</span>
+                <span className="text-xs text-[#666666] animate-breathe">Analyzing...</span>
               )}
             </div>
 
             {loadingComparison && comparisons.length === 0 && (
               <div className="space-y-3">
-                <div className="h-24 animate-shimmer rounded-xl" />
-                <div className="h-24 animate-shimmer rounded-xl" />
+                <div className="h-24 animate-shimmer rounded-lg" />
+                <div className="h-24 animate-shimmer rounded-lg" />
               </div>
             )}
 
             {comparisons.map((comp, i) => (
-              <div key={i} className="border border-zinc-800/60 rounded-xl overflow-hidden">
-                <div className="bg-zinc-800/30 px-4 py-2.5">
-                  <p className="text-xs text-zinc-400 font-medium">Q: {comp.question}</p>
+              <div key={i} className="border border-white/10 rounded-lg overflow-hidden">
+                <div className="bg-white/[0.02] px-4 py-2.5">
+                  <p className="text-xs text-[#888888] font-medium">Q: {comp.question}</p>
                 </div>
-                <div className="grid grid-cols-2 divide-x divide-zinc-800/60">
+                <div className="grid grid-cols-2 divide-x divide-white/10">
                   <div className="p-4">
-                    <p className="text-[10px] uppercase tracking-widest text-orange-400/70 mb-2">Your Answer</p>
-                    <p className="text-xs text-zinc-500 leading-relaxed">{comp.yourAnswer}</p>
+                    <p className="text-[10px] uppercase tracking-widest text-[#f5a623]/60 mb-2">Your Answer</p>
+                    <p className="text-xs text-[#888888] leading-relaxed">{comp.yourAnswer}</p>
                   </div>
                   <div className="p-4">
-                    <p className="text-[10px] uppercase tracking-widest text-green-400/70 mb-2">Strong Hire Answer</p>
-                    <p className="text-xs text-zinc-300 leading-relaxed">{comp.idealAnswer}</p>
+                    <p className="text-[10px] uppercase tracking-widest text-[#00d4aa]/60 mb-2">Strong Hire Answer</p>
+                    <p className="text-xs text-[#ededed] leading-relaxed">{comp.idealAnswer}</p>
                   </div>
                 </div>
-                <div className="bg-zinc-800/20 px-4 py-2.5 border-t border-zinc-800/60">
-                  <p className="text-[10px] uppercase tracking-widest text-blue-400/50 mb-1">What was missing</p>
-                  <p className="text-xs text-zinc-500">{comp.gap}</p>
+                <div className="bg-white/[0.02] px-4 py-2.5 border-t border-white/10">
+                  <p className="text-[10px] uppercase tracking-widest text-[#666666] mb-1">What was missing</p>
+                  <p className="text-xs text-[#888888]">{comp.gap}</p>
                 </div>
               </div>
             ))}
 
             {comparisonLoaded && comparisons.length === 0 && (
-              <p className="text-xs text-zinc-600">Could not generate comparison for this interview.</p>
+              <p className="text-xs text-[#666666]">Could not generate comparison for this interview.</p>
             )}
           </div>
         )}
@@ -248,13 +243,13 @@ function Results() {
         <div className="flex gap-3 pt-4 animate-fadeIn" style={{ animationDelay: '0.4s' }}>
           <button
             onClick={() => router.push(`/interview?company=${company}&category=${category}&difficulty=${difficulty}`)}
-            className="flex-1 py-3.5 rounded-2xl border border-zinc-800 text-zinc-400 text-sm font-medium hover:border-zinc-600 hover:text-zinc-200 transition-all"
+            className="flex-1 py-3.5 rounded-lg border border-white/10 text-[#888888] text-sm font-medium hover:border-white/20 hover:text-[#ededed] transition-all duration-200"
           >
             Retry Same Interview
           </button>
           <button
             onClick={() => router.push('/')}
-            className="flex-1 py-3.5 rounded-2xl bg-white text-zinc-950 text-sm font-semibold hover:bg-zinc-100 transition-all active:scale-[0.99]"
+            className="flex-1 py-3.5 rounded-lg bg-white text-black text-sm font-medium hover:bg-white/90 transition-all duration-200 active:scale-[0.99]"
           >
             New Interview
           </button>
