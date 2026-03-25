@@ -135,7 +135,7 @@ export default function Home() {
             praxis
           </h1>
           <p className="text-zinc-500 text-lg max-w-md mx-auto leading-relaxed">
-            Theory is nothing. Practice is everything.
+            Practice real technical interviews with AI interviewers from Google, Meta, Amazon & more.
           </p>
           {streakData.currentStreak > 0 && (
             <button
