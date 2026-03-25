@@ -22,21 +22,29 @@ const companyGroups = [
     label: 'Enterprise',
     companies: ['Oracle', 'Bloomberg', 'IBM'],
   },
+  {
+    label: 'Rising Stars',
+    companies: ['Databricks', 'Palantir', 'Coinbase', 'Snowflake', 'Figma', 'Notion', 'Cloudflare', 'Datadog'],
+  },
 ]
 
-const categories = ['DSA', 'System Design', 'Behavioral']
+const categories = ['DSA', 'System Design', 'Behavioral', 'API Design', 'OOD']
 const difficulties = ['Easy', 'Medium', 'Hard']
 
 const categoryDescriptions: Record<string, string> = {
   DSA: 'Algorithms & Data Structures',
   'System Design': 'Architecture & Scalability',
   Behavioral: 'Leadership & Culture Fit',
+  'API Design': 'REST, GraphQL & API Architecture',
+  OOD: 'Design Patterns & SOLID Principles',
 }
 
 const categoryIcons: Record<string, string> = {
   DSA: '</>',
   'System Design': 'sys',
   Behavioral: 'beh',
+  'API Design': 'api',
+  OOD: 'ood',
 }
 
 const companyColors: Record<string, string> = {
@@ -55,6 +63,14 @@ const companyColors: Record<string, string> = {
   Oracle: 'border-red-600/60 bg-red-600/8 text-red-500 hover:bg-red-600/15 hover:border-red-500',
   Bloomberg: 'border-orange-400/60 bg-orange-400/8 text-orange-300 hover:bg-orange-400/15 hover:border-orange-300',
   IBM: 'border-blue-300/60 bg-blue-300/8 text-blue-200 hover:bg-blue-300/15 hover:border-blue-200',
+  Databricks: 'border-red-500/60 bg-red-500/8 text-red-400 hover:bg-red-500/15 hover:border-red-400',
+  Palantir: 'border-zinc-400/60 bg-zinc-400/8 text-zinc-300 hover:bg-zinc-400/15 hover:border-zinc-300',
+  Coinbase: 'border-blue-500/60 bg-blue-500/8 text-blue-400 hover:bg-blue-500/15 hover:border-blue-400',
+  Snowflake: 'border-sky-400/60 bg-sky-400/8 text-sky-300 hover:bg-sky-400/15 hover:border-sky-300',
+  Figma: 'border-purple-500/60 bg-purple-500/8 text-purple-400 hover:bg-purple-500/15 hover:border-purple-400',
+  Notion: 'border-zinc-300/60 bg-zinc-300/8 text-zinc-200 hover:bg-zinc-300/15 hover:border-zinc-200',
+  Cloudflare: 'border-orange-500/60 bg-orange-500/8 text-orange-400 hover:bg-orange-500/15 hover:border-orange-400',
+  Datadog: 'border-violet-400/60 bg-violet-400/8 text-violet-300 hover:bg-violet-400/15 hover:border-violet-300',
 }
 
 const companySelectedColors: Record<string, string> = {
@@ -73,6 +89,14 @@ const companySelectedColors: Record<string, string> = {
   Oracle: 'border-red-600 bg-red-600/20 text-red-400 ring-1 ring-red-600/30',
   Bloomberg: 'border-orange-400 bg-orange-400/20 text-orange-200 ring-1 ring-orange-400/30',
   IBM: 'border-blue-300 bg-blue-300/20 text-blue-100 ring-1 ring-blue-300/30',
+  Databricks: 'border-red-500 bg-red-500/20 text-red-300 ring-1 ring-red-500/30',
+  Palantir: 'border-zinc-400 bg-zinc-400/20 text-zinc-200 ring-1 ring-zinc-400/30',
+  Coinbase: 'border-blue-500 bg-blue-500/20 text-blue-300 ring-1 ring-blue-500/30',
+  Snowflake: 'border-sky-400 bg-sky-400/20 text-sky-200 ring-1 ring-sky-400/30',
+  Figma: 'border-purple-500 bg-purple-500/20 text-purple-300 ring-1 ring-purple-500/30',
+  Notion: 'border-zinc-300 bg-zinc-300/20 text-zinc-100 ring-1 ring-zinc-300/30',
+  Cloudflare: 'border-orange-500 bg-orange-500/20 text-orange-300 ring-1 ring-orange-500/30',
+  Datadog: 'border-violet-400 bg-violet-400/20 text-violet-200 ring-1 ring-violet-400/30',
 }
 
 const difficultyConfig: Record<string, { color: string; selected: string; desc: string }> = {
@@ -262,7 +286,7 @@ export default function Home() {
             {category && <span className="text-xs text-zinc-600 ml-auto">{category}</span>}
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-5 gap-3">
             {categories.map((cat) => (
               <button
                 key={cat}

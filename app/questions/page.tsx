@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { filterQuestions, Question } from '@/lib/questions'
 
-const companies = ['Google', 'Meta', 'Amazon', 'Apple', 'Netflix', 'Microsoft', 'NVIDIA', 'Tesla', 'Uber', 'Airbnb', 'Stripe', 'Spotify', 'Oracle', 'Bloomberg', 'IBM']
-const categories = ['DSA', 'System Design', 'Behavioral']
+const companies = ['Google', 'Meta', 'Amazon', 'Apple', 'Netflix', 'Microsoft', 'NVIDIA', 'Tesla', 'Uber', 'Airbnb', 'Stripe', 'Spotify', 'Oracle', 'Bloomberg', 'IBM', 'Databricks', 'Palantir', 'Coinbase', 'Snowflake', 'Figma', 'Notion', 'Cloudflare', 'Datadog']
+const categories = ['DSA', 'System Design', 'Behavioral', 'API Design', 'OOD']
 const difficulties = ['Easy', 'Medium', 'Hard']
 
 const difficultyColors: Record<string, string> = {

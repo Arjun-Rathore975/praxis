@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 // ── Types ──────────────────────────────────────────────────────────────
 
 type SkillLevel = 'Beginner' | 'Intermediate' | 'Advanced'
-type Category = 'DSA' | 'System Design' | 'Behavioral'
+type Category = 'DSA' | 'System Design' | 'Behavioral' | 'API Design' | 'OOD'
 type Difficulty = 'Easy' | 'Medium' | 'Hard'
 
 interface PlanDay {
@@ -42,14 +42,14 @@ const COMPANY_GROUPS = [
 
 const SKILL_LEVELS: SkillLevel[] = ['Beginner', 'Intermediate', 'Advanced']
 
-const COMPANY_WEIGHTS: Record<string, { DSA: number; 'System Design': number; Behavioral: number }> = {
-  Google:    { DSA: 0.50, 'System Design': 0.30, Behavioral: 0.20 },
-  Amazon:    { DSA: 0.30, 'System Design': 0.30, Behavioral: 0.40 },
-  Meta:      { DSA: 0.45, 'System Design': 0.35, Behavioral: 0.20 },
-  Bloomberg: { DSA: 0.55, 'System Design': 0.30, Behavioral: 0.15 },
+const COMPANY_WEIGHTS: Record<string, Record<Category, number>> = {
+  Google:    { DSA: 0.40, 'System Design': 0.25, Behavioral: 0.15, 'API Design': 0.10, OOD: 0.10 },
+  Amazon:    { DSA: 0.25, 'System Design': 0.25, Behavioral: 0.30, 'API Design': 0.05, OOD: 0.15 },
+  Meta:      { DSA: 0.35, 'System Design': 0.30, Behavioral: 0.15, 'API Design': 0.10, OOD: 0.10 },
+  Bloomberg: { DSA: 0.45, 'System Design': 0.25, Behavioral: 0.10, 'API Design': 0.05, OOD: 0.15 },
 }
 
-const DEFAULT_WEIGHTS = { DSA: 0.35, 'System Design': 0.35, Behavioral: 0.30 }
+const DEFAULT_WEIGHTS: Record<Category, number> = { DSA: 0.30, 'System Design': 0.25, Behavioral: 0.20, 'API Design': 0.13, OOD: 0.12 }
 
 const DSA_TOPICS = [
   'Arrays & Hash Maps',
@@ -105,10 +105,38 @@ const BEHAVIORAL_TOPICS = [
   'Diversity & Inclusion',
 ]
 
+const API_DESIGN_TOPICS = [
+  'REST API Fundamentals',
+  'GraphQL API Design',
+  'API Versioning & Compatibility',
+  'Pagination & Filtering',
+  'Authentication & Authorization',
+  'Rate Limiting & Throttling',
+  'Webhook Design & Delivery',
+  'Error Handling & Status Codes',
+  'Idempotency & Retry Logic',
+  'API Gateway & Routing',
+]
+
+const OOD_TOPICS = [
+  'SOLID Principles',
+  'Design Patterns: Creational',
+  'Design Patterns: Structural',
+  'Design Patterns: Behavioral',
+  'Class Hierarchies & Inheritance',
+  'Composition vs Inheritance',
+  'State Machines & Workflows',
+  'Observer & Event Systems',
+  'Strategy & Command Patterns',
+  'Factory & Builder Patterns',
+]
+
 const TOPIC_POOL: Record<Category, string[]> = {
   DSA: DSA_TOPICS,
   'System Design': SYSTEM_DESIGN_TOPICS,
   Behavioral: BEHAVIORAL_TOPICS,
+  'API Design': API_DESIGN_TOPICS,
+  OOD: OOD_TOPICS,
 }
 
 const COMPANY_COLORS: Record<string, { border: string; bg: string; text: string; accent: string }> = {
@@ -169,6 +197,8 @@ const CATEGORY_COLORS: Record<Category, { dot: string; bg: string; text: string;
   DSA:              { dot: 'bg-purple-500', bg: 'bg-purple-500/10', text: 'text-purple-400', border: 'border-purple-500/30' },
   'System Design':  { dot: 'bg-cyan-500', bg: 'bg-cyan-500/10', text: 'text-cyan-400', border: 'border-cyan-500/30' },
   Behavioral:       { dot: 'bg-amber-500', bg: 'bg-amber-500/10', text: 'text-amber-400', border: 'border-amber-500/30' },
+  'API Design':     { dot: 'bg-teal-500', bg: 'bg-teal-500/10', text: 'text-teal-400', border: 'border-teal-500/30' },
+  OOD:              { dot: 'bg-rose-500', bg: 'bg-rose-500/10', text: 'text-rose-400', border: 'border-rose-500/30' },
 }
 
 const DIFFICULTY_COLORS: Record<Difficulty, string> = {
@@ -229,7 +259,7 @@ function generatePlan(config: PrepPlanConfig): PlanDay[] {
   // 3-4 weeks or more: comprehensive
 
   const plan: PlanDay[] = []
-  const topicCounters: Record<Category, number> = { DSA: 0, 'System Design': 0, Behavioral: 0 }
+  const topicCounters: Record<Category, number> = { DSA: 0, 'System Design': 0, Behavioral: 0, 'API Design': 0, OOD: 0 }
 
   for (let i = 0; i < totalDays; i++) {
     const dayDate = new Date(startDate)
