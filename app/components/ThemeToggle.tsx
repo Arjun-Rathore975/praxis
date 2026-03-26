@@ -8,7 +8,7 @@ export function ThemeToggle() {
 
   useEffect(() => {
     setMounted(true)
-    const saved = localStorage.getItem('praxis-theme') as 'dark' | 'light' | null
+    const saved = localStorage.getItem('crucible-theme') as 'dark' | 'light' | null
     if (saved) {
       setTheme(saved)
       document.documentElement.setAttribute('data-theme', saved)
@@ -18,7 +18,7 @@ export function ThemeToggle() {
   function toggle() {
     const next = theme === 'dark' ? 'light' : 'dark'
     setTheme(next)
-    localStorage.setItem('praxis-theme', next)
+    localStorage.setItem('crucible-theme', next)
     document.documentElement.setAttribute('data-theme', next)
   }
 

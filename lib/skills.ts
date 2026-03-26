@@ -2,7 +2,7 @@
 
 import { getHistory } from './storage'
 
-const SKILLS_KEY = 'praxis-skills'
+const SKILLS_KEY = 'crucible-skills'
 
 export interface SkillNode {
   id: string

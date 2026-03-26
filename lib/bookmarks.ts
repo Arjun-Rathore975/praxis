@@ -1,6 +1,6 @@
 // Bookmark system for saving questions to revisit later
 
-const BOOKMARK_KEY = 'praxis-bookmarks'
+const BOOKMARK_KEY = 'crucible-bookmarks'
 
 export interface Bookmark {
   questionId: string

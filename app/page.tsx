@@ -63,7 +63,7 @@ export default function Home() {
     <main className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
       {/* Top bar */}
       <nav className="flex items-center justify-between px-6 py-4 border-b border-[var(--border)]">
-        <span className="text-sm font-semibold tracking-tight">praxis</span>
+        <span className="text-sm font-semibold tracking-tight">crucible</span>
         <div className="flex items-center gap-5">
           {[
             { href: '/daily', label: 'Daily' },

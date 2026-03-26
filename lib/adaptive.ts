@@ -1,6 +1,6 @@
 // Adaptive difficulty system — tracks performance by category/topic and recommends difficulty
 
-const ADAPTIVE_KEY = 'praxis-adaptive-data'
+const ADAPTIVE_KEY = 'crucible-adaptive-data'
 
 export interface CategoryPerformance {
   category: string

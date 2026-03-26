@@ -47,7 +47,7 @@ export interface UseVoicePlaybackReturn {
 // Constants
 // ---------------------------------------------------------------------------
 
-const STORAGE_KEY = 'praxis-voice-preferences'
+const STORAGE_KEY = 'crucible-voice-preferences'
 const PREFERRED_VOICES = [
   'Samantha',
   'Daniel',

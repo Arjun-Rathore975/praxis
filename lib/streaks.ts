@@ -1,6 +1,6 @@
 // Streak tracking using localStorage
 
-const STREAK_KEY = 'praxis-streak-data'
+const STREAK_KEY = 'crucible-streak-data'
 
 export interface StreakData {
   completedDates: string[] // ISO date strings (YYYY-MM-DD)

@@ -173,8 +173,8 @@ const DIFFICULTY_COLORS: Record<Difficulty, string> = {
   Hard: 'text-[#ee5555]',
 }
 
-const STORAGE_KEY = 'praxis-prep-plan'
-const COMPLETED_KEY = 'praxis-prep-completed'
+const STORAGE_KEY = 'crucible-prep-plan'
+const COMPLETED_KEY = 'crucible-prep-completed'
 
 // ── Plan Generation ────────────────────────────────────────────────────
 

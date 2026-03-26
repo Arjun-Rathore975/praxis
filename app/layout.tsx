@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Praxis — Turn Knowledge Into Offers",
+  title: "Crucible — Where Engineers Are Forged",
   description: "AI-powered mock interviews that mirror real FAANG technical screens. Practice with Google, Meta, Amazon, Apple, Netflix, and 10+ more.",
 };
 
@@ -24,7 +24,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               try {
-                const t = localStorage.getItem('praxis-theme');
+                const t = localStorage.getItem('crucible-theme');
                 if (t) document.documentElement.setAttribute('data-theme', t);
               } catch {}
             `,
