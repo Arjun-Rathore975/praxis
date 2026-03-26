@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Crucible — Where Engineers Are Forged",
+  title: "Crucible — Smarter Interview Prep",
   description: "AI-powered mock interviews that mirror real FAANG technical screens. Practice with Google, Meta, Amazon, Apple, Netflix, and 10+ more.",
 };
 
