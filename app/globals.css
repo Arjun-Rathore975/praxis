@@ -1,24 +1,63 @@
 @import "tailwindcss";
 
-:root {
-  --background: #000000;
-  --foreground: #ededed;
+/* ── Theme tokens ──────────────────────────────────────────── */
+
+:root,
+[data-theme="dark"] {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #111111;
+  --bg-user-msg: rgba(255,255,255,0.03);
+  --text-primary: #ededed;
+  --text-secondary: #888888;
+  --text-muted: #666666;
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(255,255,255,0.2);
+  --btn-primary-bg: #ffffff;
+  --btn-primary-text: #000000;
+  --accent-green: #00d4aa;
+  --accent-yellow: #f5a623;
+  --accent-red: #ee5555;
+  --scrollbar-thumb: rgba(255,255,255,0.1);
+  --scrollbar-hover: rgba(255,255,255,0.15);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #e5e5e5;
+  --bg-user-msg: rgba(0,0,0,0.03);
+  --text-primary: #171717;
+  --text-secondary: #525252;
+  --text-muted: #a3a3a3;
+  --border: rgba(0,0,0,0.1);
+  --border-hover: rgba(0,0,0,0.2);
+  --btn-primary-bg: #171717;
+  --btn-primary-text: #ffffff;
+  --accent-green: #059669;
+  --accent-yellow: #d97706;
+  --accent-red: #dc2626;
+  --scrollbar-thumb: rgba(0,0,0,0.1);
+  --scrollbar-hover: rgba(0,0,0,0.15);
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-primary);
+  color: var(--text-primary);
   font-family: var(--font-sans), 'Inter', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Custom scrollbar — minimal */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -27,14 +66,15 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--scrollbar-thumb);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--scrollbar-hover);
 }
 
-/* Smooth animations */
+/* ── Animations ─────────────────────────────────────────── */
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
@@ -55,6 +95,11 @@ body {
   50% { opacity: 1; }
 }
 
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .animate-fadeIn {
   animation: fadeIn 0.4s ease-out forwards;
 }
@@ -64,13 +109,17 @@ body {
 }
 
 .animate-shimmer {
-  background: linear-gradient(90deg, #0a0a0a 25%, #111111 50%, #0a0a0a 75%);
+  background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
 .animate-breathe {
   animation: breathe 2s ease-in-out infinite;
+}
+
+.animate-countUp {
+  animation: countUp 0.6s ease-out forwards;
 }
 
 /* Score bar animation */
@@ -83,7 +132,8 @@ body {
   animation: fadeIn 0.3s ease-out forwards;
 }
 
-/* Split pane gutter */
+/* ── Split pane ─────────────────────────────────────────── */
+
 .split-pane {
   display: flex;
   flex-direction: row;
@@ -94,7 +144,7 @@ body {
 }
 
 .gutter {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--border);
   position: relative;
   cursor: col-resize;
   flex-shrink: 0;
@@ -102,11 +152,11 @@ body {
 }
 
 .gutter:hover {
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: var(--border-hover);
 }
 
 .gutter:active {
-  background-color: rgba(255, 255, 255, 0.12);
+  background-color: var(--border-hover);
 }
 
 .gutter::after {
@@ -118,22 +168,18 @@ body {
   width: 2px;
   height: 32px;
   border-radius: 1px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--border);
   transition: background-color 0.2s ease, height 0.2s ease;
 }
 
 .gutter:hover::after {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--border-hover);
   height: 48px;
-}
-
-.gutter:active::after {
-  background-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Focus ring */
 *:focus-visible {
-  outline: 1px solid rgba(255, 255, 255, 0.2);
+  outline: 1px solid var(--border-hover);
   outline-offset: 2px;
   border-radius: 6px;
 }

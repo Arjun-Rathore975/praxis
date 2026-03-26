@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import { ThemeToggle } from '@/app/components'
 
 // ── Types ──────────────────────────────────────────────────────────────
 

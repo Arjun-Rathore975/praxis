@@ -8,9 +8,33 @@ const client = new Anthropic({
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, company, category, difficulty } = await req.json()
+    const { messages, company, category, difficulty, panel, interviewer } = await req.json()
 
-    const systemPrompt = buildSystemPrompt(company as Company, category as Category, difficulty as Difficulty)
+    let systemPrompt = buildSystemPrompt(company as Company, category as Category, difficulty as Difficulty)
+
+    // Panel mode: modify the system prompt for 2 interviewers
+    if (panel && interviewer) {
+      const interviewerStyles = {
+        1: `\n\n## Panel Mode — You are Interviewer #1
+You are the TECHNICAL interviewer. Your name is Alex. You focus on:
+- Technical accuracy and depth
+- Algorithm efficiency and optimization
+- Code quality and edge cases
+- You are more direct and probing. You push candidates harder on technical details.
+- Your style is precise and analytical. You ask specific follow-ups about complexity, edge cases, and implementation details.
+- Start by introducing yourself: "Hi, I'm Alex, I'll be one of your interviewers today alongside my colleague Jordan."`,
+        2: `\n\n## Panel Mode — You are Interviewer #2
+You are the BEHAVIORAL/COMMUNICATION interviewer. Your name is Jordan. You focus on:
+- Communication clarity and structure
+- Problem-solving approach and reasoning
+- How the candidate handles ambiguity
+- You are warmer but still evaluative. You care about HOW the candidate thinks, not just WHAT they say.
+- Your style is conversational but probing. You ask about trade-offs, alternatives, and real-world considerations.
+- You do NOT re-introduce yourself (Alex already did). Jump straight into your question or follow-up.
+- Build on what Alex asked — reference the candidate's previous answers.`,
+      }
+      systemPrompt += interviewerStyles[interviewer as 1 | 2] || ''
+    }
 
     const response = await client.messages.create({
       model: 'claude-sonnet-4-20250514',
